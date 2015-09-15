@@ -13,7 +13,20 @@ __sink__ is a tool that makes it easier for developers to debug and analyze JSON
 
 ## Samples
 
-[TODO]
+To get the 4th item of an array in `array.json` file use:
+```
+sink 3 array.json
+```
+
+To filter the 'BTC' attribute of a response passed by a `curl` request:
+```
+curl -sS http://coinabul.com/api.php | sink BTC
+```
+
+Piping two `sink` commands:
+```
+curl -sS http://coinabul.com/api.php | sink BTC | sink Ounces
+```
 
 ## Want to contribute?
 
