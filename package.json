@@ -1,0 +1,25 @@
+{
+  "name": "node-sink",
+  "version": "0.0.0",
+  "description": "sink is a tool to filter JSON by attributes and array indexes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devgar/node-sink"
+  },
+  "keywords": [
+    "JSON",
+    "search",
+    "filter",
+    "find"
+  ],
+  "author": "Edgar Albalate <dev.gardo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devgar/node-sink/issues"
+  },
+  "homepage": "https://github.com/devgar/node-sink"
+}
