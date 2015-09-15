@@ -1,23 +1,24 @@
 #!/usr/bin/node
 
-process.stdin.setEncoding('utf8');
+var fs = require("fs");
 
 var data = "";
 
 if(process.argv.length > 2){
 
-  process.stdin.on('readable', function() {
-    var chunk = process.stdin.read();
-    if (chunk !== null) {
-      process.stdout.write('data: ' + chunk);
-    }
-  });
+  if(process.argv.length == 4){
+    var inStream = fs.createReadStream( process.argv[3] );
+  } else {
+    var inStream = process.stdin;
+  }
 
-  process.stdin.on('data', function(chunk){
+  inStream.setEncoding('utf8');
+
+  inStream.on('data', function(chunk){
     data += chunk;
   });
 
-  process.stdin.on('end', function(){
+  inStream.on('end', function(){
     data = JSON.parse(data);
     if(data){
       data = data[ process.argv["2"] ];
