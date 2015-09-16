@@ -6,6 +6,8 @@ var data = "";
 
 if(process.argv.length > 2){
 
+  var filters = process.argv[2].split('.');
+
   if(process.argv.length == 4){
     var inStream = fs.createReadStream( process.argv[3] );
   } else {
@@ -21,12 +23,18 @@ if(process.argv.length > 2){
   inStream.on('end', function(){
     data = JSON.parse(data);
     if(data){
-      data = data[ process.argv["2"] ];
-      process.stdout.write( JSON.stringify(data, null, '  ') );
+      while(filters.length && filters[0] in data){
+        data = data[ filters.splice(0,1) ];
+      }
+
+      if(filters.length)
+        process.stderr.write("Error: unfound index " + filters[0] + " in gived JSON\n");
+      else
+        process.stdout.write( JSON.stringify(data, null, '  ') );
     }else
-      process.stderr.write("Error: Unvalid gived JSON");
+      process.stderr.write("Error: Unvalid gived JSON\n");
   });
 
 }else{
-  process.stderr.write("Error: Not given attribute to filter");
+  process.stderr.write("Error: Not given argument to filter\n");
 }

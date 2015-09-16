@@ -28,6 +28,16 @@ Piping two `sink` commands:
 curl -sS http://coinabul.com/api.php | sink BTC | sink Ounces
 ```
 
+You can also do this
+```
+sink repository.type package.json
+
+# or...
+
+sink keywords.1 package.json
+
+```
+
 ## Want to contribute?
 
 [TODO]
