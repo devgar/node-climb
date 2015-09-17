@@ -7,8 +7,7 @@ function exitError(code, text){ //Optional (text) code default = 1
       text = code; code = 1;
   }
 
-  process.stderr.write(text);
-  process.stderr.write("\n");
+  process.stderr.write(text + "\n");
   process.exit(code);
 
 }
@@ -39,13 +38,13 @@ if(process.argv.length > 2){
       }
 
       if(filters.length)
-        exitError("Error: unfound index " + filters[0] + " in gived JSON\n");
+        exitError("Error: unfound index " + filters[0] + " in gived JSON.");
       else
-        process.stdout.write( JSON.stringify(data, null, '  ') );
+        process.stdout.write( JSON.stringify(data, null, '  ') + '\n' );
     }else
-      exitError("Error: Unvalid gived JSON\n");
+      exitError("Error: Unvalid gived JSON.");
   });
 
 }else{
-  exitError("Error: Not given argument to filter\n");
+  exitError("Error: Not given argument to filter.");
 }
