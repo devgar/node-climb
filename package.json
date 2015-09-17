@@ -1,14 +1,14 @@
 {
-  "name": "sink",
+  "name": "climb",
   "version": "0.0.1",
-  "description": "sink is a tool to filter JSON by attributes and array indexes",
+  "description": "climb is a tool to filter JSON by attributes and array indexes",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/devgar/node-sink"
+    "url": "https://github.com/devgar/node-climb"
   },
   "dependencies":{
    
@@ -23,11 +23,11 @@
   "author": "Edgar Albalate <dev.gardo@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/devgar/node-sink/issues"
+    "url": "https://github.com/devgar/node-climb/issues"
   },
   
-  "homepage": "https://github.com/devgar/node-sink",
+  "homepage": "https://github.com/devgar/node-climb",
   "bin" :{
-    "sink": "index.js"
+    "climb": "index.js"
   }
 }

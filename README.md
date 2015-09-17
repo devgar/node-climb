@@ -1,42 +1,42 @@
-# node-sink
+# node-climb
 
 **The JSON filter**
 
-## What is sink?
+## What is climb?
 
-__sink__ is a tool that makes it easier for developers to debug and analyze JSON files and
+__climb__ is a tool that makes it easier for developers to debug and analyze JSON files and
  http responses.
 
 ## Installation
 
 ```bash
-npm install -g sink
+npm install -g climb
 ```
 
 ## Samples
 
 To get the 4th item of an array in `array.json` file use:
 ```bash
-sink 3 array.json
+climb 3 array.json
 ```
 
 To filter the 'BTC' attribute of a response passed by a `curl` request:
 ```bash
-curl -sS http://coinabul.com/api.php | sink BTC
+curl -sS http://coinabul.com/api.php | climb BTC
 ```
 
-Piping two `sink` commands:
+Piping two `climb` commands:
 ```bash
-curl -sS http://coinabul.com/api.php | sink BTC | sink Ounces
+curl -sS http://coinabul.com/api.php | climb BTC | climb Ounces
 ```
 
 You can also do this
 ```bash
-sink repository.type package.json
+climb repository.type package.json
 
 # or...
 
-sink keywords.1 package.json
+climb keywords.1 package.json
 
 ```
 
