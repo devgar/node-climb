@@ -2,6 +2,17 @@
 
 var fs = require("fs");
 
+function exitError(code, text){ //Optional (text) code default = 1
+  if(text === undefined && typeof code != "number"){
+      text = code; code = 1;
+  }
+
+  process.stderr.write(text);
+  process.stderr.write("\n");
+  process.exit(code);
+
+}
+
 var data = "";
 
 if(process.argv.length > 2){
@@ -24,17 +35,17 @@ if(process.argv.length > 2){
     data = JSON.parse(data);
     if(data){
       while(filters.length && filters[0] in data){
-        data = data[ filters.splice(0,1) ];
+        data = data[ filters.shift() ];
       }
 
       if(filters.length)
-        process.stderr.write("Error: unfound index " + filters[0] + " in gived JSON\n");
+        exitError("Error: unfound index " + filters[0] + " in gived JSON\n");
       else
         process.stdout.write( JSON.stringify(data, null, '  ') );
     }else
-      process.stderr.write("Error: Unvalid gived JSON\n");
+      exitError("Error: Unvalid gived JSON\n");
   });
 
 }else{
-  process.stderr.write("Error: Not given argument to filter\n");
+  exitError("Error: Not given argument to filter\n");
 }
