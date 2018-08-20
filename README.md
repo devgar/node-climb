@@ -22,12 +22,12 @@ climb 3 array.json
 
 To filter the 'BTC' attribute of a response passed by a `curl` request:
 ```bash
-curl -sS http://coinabul.com/api.php | climb BTC
+curl -sS https://api.coindesk.com/v1/bpi/currentprice.json | climb bpi
 ```
 
 Piping two `climb` commands:
 ```bash
-curl -sS http://coinabul.com/api.php | climb BTC | climb Ounces
+curl -sS https://api.coindesk.com/v1/bpi/currentprice.json | climb bpi | climb EUR
 ```
 
 You can also do this
