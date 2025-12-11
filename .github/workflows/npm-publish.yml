@@ -1,0 +1,30 @@
+# .github/workflows/publish.yml
+name: publish to npmjs
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: ⬇️ Code Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Node setup & npmrc with OIDC
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 📦 Install
+        run: npm ci
+
+      - name: ⚙️ Build
+        run: npm run build
+
+      - name: 🚀 Publish
+        run: npm publish --access public
