@@ -3,11 +3,7 @@ name: publish to npmjs
 on:
   push:
     tags:
-      # SemVer 2.0.0 ('v' prefixed)
-      # 1. BASE: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)
-      # 2. PRE-RELEASE (opcional): (?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?
-      # 3. BUILD METADATA (opcional): (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-      - '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+      - 'v*.*.*'
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,6 +13,12 @@ jobs:
     steps:
       - name: ⬇️ Code Checkout
         uses: actions/checkout@v4
+
+      - name: ✅ Validate SemVer Tag
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Tag: $TAG"
+          npx -y -p semver node -e "const semver=require('semver'); const tag=process.argv[1]; const v=tag.replace(/^v/, ''); if(!semver.valid(v)){console.error('Tag '+tag+' is not a valid SemVer'); process.exit(1);} console.log('Valid semver: '+v);" "$TAG"
 
       - name: 🛠️ Node setup & npmrc with OIDC
         uses: actions/setup-node@v4
