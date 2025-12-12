@@ -1,0 +1,34 @@
+name: bump version
+on:
+  workflow_dispatch:
+    inputs:
+      newversion:
+        type: choice
+        options: [major, minor, patch, premajor, preminor, prepatch, prerelease]
+      
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write # ¡Esta es la clave para poder hacer push!
+    steps:
+      - name: ⬇️ Code Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Node setup & npmrc with OIDC
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: ⬆️ Install dependencies
+        run: npm ci # O 'npm install' si no tienes un lockfile
+
+      - name: Bump SemVer
+        run: npm version ${{ github.event.inputs.newversion }}
+
+      - name: ⬆️ Push changes to repository
+        run: |
+          git push 
+          git push --tags
