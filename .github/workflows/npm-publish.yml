@@ -1,13 +1,10 @@
-# .github/workflows/publish.yml
+
 name: publish to npmjs
 on:
   push:
     tags:
-      # SemVer 2.0.0 ('v' prefixed)
-      # 1. BASE: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)
-      # 2. PRE-RELEASE (opcional): (?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?
-      # 3. BUILD METADATA (opcional): (?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-      - '^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+      - 'v*'
+      
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -23,6 +20,12 @@ jobs:
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
+      
+      - name: Validate SemVer
+        run: |
+          TAG_NAME=${{ github.ref_name }}
+          echo "Checking tag $TAG_NAME"
+          npx -y semver "$TAG_NAME" --throw-on-error 
 
       - name: 📦 Install
         run: npm ci
